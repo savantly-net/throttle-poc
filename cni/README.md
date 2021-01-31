@@ -32,6 +32,8 @@ kubectl delete daemonset -n kube-system aws-node
 
 ## CNI install
 
+Only use one of these -  
+
 ### Calico
 ```
 kubectl apply -f https://docs.projectcalico.org/manifests/calico-vxlan.yaml
