@@ -18,7 +18,6 @@ If using minikube, start it with CNI support
 
 ```
 minikube start --network-plugin=cni 
-# and apply the Calico manifest
 ```
 
 
