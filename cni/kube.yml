@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: i-am-slow
+  annotations:
+    kubernetes.io/ingress-bandwidth: "1M"
+    kubernetes.io/egress-bandwidth: "1M"
+spec:
+  containers:
+    - name: web
+      image: networkstatic/iperf3
+      args: ['-s']
+      ports:
+        - containerPort: 5201
+          name: server
+  terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: i-am-fast
+  annotations:
+    kubernetes.io/ingress-bandwidth: "100M"
+    kubernetes.io/egress-bandwidth: "100M"
+spec:
+  containers:
+    - name: web
+      image: networkstatic/iperf3
+      args: ['-s']
+      ports:
+        - containerPort: 5201
+  terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: throttle-tester
+  labels:
+    role: service
+spec:
+  containers:
+    - name: tester
+      image: networkstatic/iperf3
+      command: ['/bin/sh', '-c', 'sleep infinity']
+  terminationGracePeriodSeconds: 0
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netperf
+spec:
+  selector:
+    matchLabels:
+      run: netperf
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: netperf
+      annotations:
+        kubernetes.io/egress-bandwidth: "1M"
+    spec:
+      containers:
+      - name: netperf
+        image: cilium/netperf
+        ports:
+        - containerPort: 12865
