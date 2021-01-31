@@ -63,7 +63,6 @@ The nodes will not become ready until a CNI configuration is applied.
 ## CNI install
 
 Only use one of Calico or Cilium -  
-*Note* if you had an existing CNI, you may to terminate/restart them them after configuration of the new CNI. 
 
 ### Calico
 ```
