@@ -18,7 +18,7 @@ kubectl apply -f traffic-control.yml
 Create some test pods -  
 
 ```
-kubectl apply -f ../cni.kube.yml
+kubectl apply -f ../cni/kube.yml
 ```
 
 Make Weave Scope + Traffic Control available, and modify the pods traffic settings -  
