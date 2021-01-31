@@ -43,26 +43,3 @@ spec:
       image: networkstatic/iperf3
       command: ['/bin/sh', '-c', 'sleep infinity']
   terminationGracePeriodSeconds: 0
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: netperf
-spec:
-  selector:
-    matchLabels:
-      run: netperf
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        run: netperf
-      annotations:
-        kubernetes.io/egress-bandwidth: "1M"
-    spec:
-      containers:
-      - name: netperf
-        image: cilium/netperf
-        ports:
-        - containerPort: 12865

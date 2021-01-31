@@ -57,11 +57,10 @@ kubectl apply -f kube.yml
 
 ## Bandwidth test  
 
-Execute the [test.sh script](./test.sh)  
+Execute the [test.sh script](../test.sh)  
 
 Example Output - 
 
 ```
-kubectl exec throttle-tester -- /bin/sh -c 'iperf3 -c slow-svc'
 
 ```
